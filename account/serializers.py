@@ -9,6 +9,12 @@ from account.models import DriverUser
 
 
 class RegisterSerializer(ModelSerializer):
+    password = serializers.CharField(
+        min_length=4,
+        write_only=True,
+        required=True,
+        style={'input_type': 'password'}
+    )
     email = EmailField(label='Email address')
 
     class Meta:
@@ -34,6 +40,13 @@ class RegisterSerializer(ModelSerializer):
         user_qs = DriverUser.objects.filter(email=email)
         if user_qs.exists():
             raise ValidationError("Email already registered")
+        return value
+
+    def validate_username(self, value):
+        username = value
+        user_qs = DriverUser.objects.filter(username=username)
+        if user_qs.exists():
+            raise ValidationError("Username already existed")
         return value
 
     def create(self, validated_data):

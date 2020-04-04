@@ -20,8 +20,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/plant/', include(('plant.urls', 'plant'), namespace='plant')),
-    path('api/v1/account/', include(('account.urls', 'account'), namespace='account')),
+    # path('api/v1/plant/', include(('plant.urls', 'plant'), namespace='plant')),
+
+    # REST URLS
+    path('api/plant/', include(('plant.api.urls', 'plant_api'), namespace='plant_api')),
+    path('api/account/', include(('account.api.urls', 'account_api'), namespace='account_api')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
