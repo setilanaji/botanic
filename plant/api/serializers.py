@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from .models import Plant
-from rest_framework.validators import UniqueValidator
-from django.contrib.auth.models import User
+from plant.models import Plant, Garden
 
 
 class PlantSerializer(serializers.ModelSerializer):
@@ -16,3 +14,14 @@ class PlantSerializer(serializers.ModelSerializer):
             'date_added',
         )
         model = Plant
+
+
+class GardenSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = (
+            'id',
+            'name',
+            'desc',
+            'date_added',
+        )
+        model = Garden

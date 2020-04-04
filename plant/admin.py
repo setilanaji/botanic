@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Plant, Facility, Garden, News
+from .models import Plant, Garden
 
 
 class PlantAdmin(admin.ModelAdmin):
@@ -14,13 +14,5 @@ class GardenAdmin(admin.ModelAdmin):
     fields = ['name', 'desc', 'date_added']
 
 
-class FacilityAdmin(admin.ModelAdmin):
-    list_display = 'name', 'type', 'date_added'
-    list_filter = 'type', 'date_added',
-    fields = 'name', 'type', 'date_added', 'desc'
-
-
 admin.site.register(Plant, PlantAdmin)
-admin.site.register(Facility, FacilityAdmin)
 admin.site.register(Garden, GardenAdmin)
-admin.site.register(News)
