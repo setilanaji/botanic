@@ -37,6 +37,7 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    email_confirmed = models.BooleanField(default=False)
     username = models.CharField(max_length=30, unique=True)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
@@ -66,3 +67,10 @@ class Account(AbstractBaseUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def update_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Account.objects.create(user=instance)
+#         instance.save()

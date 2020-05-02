@@ -8,7 +8,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['email', 'username', 'password', 'password2']
+        fields = ['email', 'username', 'password', 'password2',]
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -21,8 +21,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
         if password != password2:
-            raise serializers.ValidationError({'password': 'Passwords must match.'})
+            raise serializers.ValidationError({'password': 'Passwords must match.',
+                                               'key': 'password.mismatch'})
         account.set_password(password)
+        account.is_active = False
         account.save()
         return account
 

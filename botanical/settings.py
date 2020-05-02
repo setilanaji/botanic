@@ -26,7 +26,7 @@ SECRET_KEY = '_kolpbo&gcx&znzrf5njp1zx#@@6#2$nx5v!0h3@@q7_#0fzp^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'plant.apps.PlantConfig',
 
+    'django_cleanup',
+
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,9 @@ ROOT_URLCONF = 'botanical.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,8 +140,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'plant.api.pagination.MyPagination',
+    'PAGE_SIZE': 2,
 
 }
 
@@ -146,6 +150,13 @@ AUTHENTICATION_BACKENDS = (
     'account.backends.CaseInsensitiveModelBackend',
     )
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'setyajiyudha233@gmail.com'
+EMAIL_HOST_PASSWORD = 'akulaharjuna123'
+EMAIL_PORT = 587
+PASSWORD_RESET_TIMEOUT_DAYS = 2
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 

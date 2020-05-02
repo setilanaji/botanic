@@ -6,7 +6,9 @@ from account.api.views import (
     update_account_view,
     does_account_exist_view,
     ChangePasswordView,
+    ActivateAccount,
 )
+
 
 urlpatterns = [
     path('check_if_account_exists/', does_account_exist_view, name="check_if_account_exists"),
@@ -15,4 +17,5 @@ urlpatterns = [
     path('properties/update/', update_account_view, name="update"),
     path('register/', registration_view, name="register"),
     path('login/', ObtainAuthTokenView.as_view(), name="login"),
+    path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name="activate"),
 ]
